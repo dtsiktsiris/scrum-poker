@@ -5,7 +5,6 @@ function Card(props: any) {
 
     const cardClick = function () {
         console.log(props.number);
-
     }
 
     return (

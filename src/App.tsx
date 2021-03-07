@@ -1,10 +1,10 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 import CardsHolder from './scenes/CardsHolder/';
 import Header from './scenes/Header/';
 
 function App() {
+
   return (
     <div className="app">
       <Header></Header>
