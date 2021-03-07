@@ -1,0 +1,7 @@
+.holder{
+    background-color: yellow;
+}
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+}
