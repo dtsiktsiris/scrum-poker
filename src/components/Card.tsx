@@ -1,8 +1,9 @@
 import React from 'react'
+import './Card.css'
 
-function Card(){
+function Card(props: any){
     return(
-        <p>asd</p>
+        <div className="card">{props.number}</div>
     )
 }
 
