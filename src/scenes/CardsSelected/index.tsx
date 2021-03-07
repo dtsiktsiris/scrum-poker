@@ -11,7 +11,7 @@ function CardsSelected(){
     });
     
     return(
-        <div className="holder">
+        <div className="holderSel">
             <p>3 users have selected:</p>
             <div className="cards">
                 {listItems}

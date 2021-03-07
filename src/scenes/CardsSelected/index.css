@@ -1,5 +1,5 @@
-.holder{
-    background-color: yellow;
+.holderSel{
+    background-color: lightgreen;
 }
 .cards {
     display: flex;
