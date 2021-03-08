@@ -4,7 +4,7 @@ import './index.css'
 function Card(props: any) {
 
     const cardClick = function () {
-        console.log(props.number);
+        props.sendMessage(props.number);
     }
 
     return (
