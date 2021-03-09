@@ -6,7 +6,7 @@ const socket =  new WebSocket(`ws://localhost:3001`);
 
 function CardsHolder() {
     const [selected, setSelected] = useState('');
-    const [othersSelected, setOtherSelected] = useState([]);
+    const [allChoices, setAllChoices] = useState([]);
 
     useEffect(() => {
         // Connection opened
@@ -19,7 +19,7 @@ function CardsHolder() {
             // console.log('Message from server ', event.data);
             let list = JSON.parse(event.data)
             console.log(list);
-            setOtherSelected(list);
+            setAllChoices(list);
         });
 
         socket.addEventListener('close', function (event) {
@@ -35,7 +35,7 @@ function CardsHolder() {
 
     const numbers = ['1', '2', '3', '5', '8', '13', '20', '40', '60', '100', '?', 'C'];
 
-    const selListItems = othersSelected.map((number,index) => {
+    const selListItems = allChoices.map((number,index) => {
         return <Card key={index} number={number} selected={number===selected}></Card>
     });
 
@@ -46,7 +46,7 @@ function CardsHolder() {
     return (
         <div>
             <div className="holderSel">
-                <p>3 users have selected:</p>
+                <p>{allChoices.filter(c=>c==='x').length} users not vote yet</p>
                 <div className="cards">
                     {selListItems}
                 </div>
