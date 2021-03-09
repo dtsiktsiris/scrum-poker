@@ -4,10 +4,10 @@ import Card from '../../components/Card/';
 
 
 function CardsHolder() {
-    const userSelected = useState('');
+    const [selected, setSelected] = useState('');
     const othersSelected = useState('');
 
-    const socket = new WebSocket('ws://localhost:3000');
+    const socket = new WebSocket(`ws://localhost:3000`);
 
     useEffect(() => {
         // Connection opened
@@ -26,8 +26,9 @@ function CardsHolder() {
     }, [])
 
     const sendMessage = (choice: string) => {
-        console.log("opps called "+choice);
-        socket.send('Choice was '+choice);
+        // console.log("opps called "+choice);
+        setSelected(choice);
+        socket.send(choice);
     }
 
     const numbers = ['1', '2', '3', '5', '8', '13', '20', '40', '60', '100', '?', 'C'];
