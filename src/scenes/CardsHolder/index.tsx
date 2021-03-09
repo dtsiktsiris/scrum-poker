@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react'
 import './index.css'
 import Card from '../../components/Card/';
 
+const socket =  new WebSocket(`ws://localhost:3001`);
 
 function CardsHolder() {
     const [selected, setSelected] = useState('');
-    const othersSelected = useState('');
-
-    const socket = new WebSocket(`ws://localhost:3000`);
+    const [othersSelected, setOtherSelected] = useState([]);
 
     useEffect(() => {
         // Connection opened
@@ -17,7 +16,10 @@ function CardsHolder() {
 
         // Listen for messages
         socket.addEventListener('message', function (event) {
-            console.log('Message from server ', event.data);
+            // console.log('Message from server ', event.data);
+            let list = JSON.parse(event.data)
+            console.log(list);
+            setOtherSelected(list);
         });
 
         socket.addEventListener('close', function (event) {
@@ -32,10 +34,9 @@ function CardsHolder() {
     }
 
     const numbers = ['1', '2', '3', '5', '8', '13', '20', '40', '60', '100', '?', 'C'];
-    const selNumbers = ['1', '2', '3', '5'];
 
-    const selListItems = selNumbers.map((number) => {
-        return <Card key={number} number={number}></Card>
+    const selListItems = othersSelected.map((number,index) => {
+        return <Card key={index} number={number} selected={number===selected}></Card>
     });
 
     const listItems = numbers.map((number) => {

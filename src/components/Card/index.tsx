@@ -8,7 +8,7 @@ function Card(props: any) {
     }
 
     return (
-        <div className="card" onClick={cardClick}>
+        <div className={(props.selected)?"selected":"card"} onClick={cardClick}>
             {props.number}
         </div>
     )
