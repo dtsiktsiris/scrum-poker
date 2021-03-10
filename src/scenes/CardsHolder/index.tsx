@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './index.css'
 import Card from '../../components/Card/';
 
-const socket =  new WebSocket(`ws://localhost:3001`);
+const socket = new WebSocket(`ws://localhost:3001`);
 
 function CardsHolder() {
     const [selected, setSelected] = useState('');
@@ -35,8 +35,8 @@ function CardsHolder() {
 
     const numbers = ['1', '2', '3', '5', '8', '13', '20', '40', '60', '100', '?', 'C'];
 
-    const selListItems = allChoices.map((number,index) => {
-        return <Card key={index} number={number} selected={number===selected}></Card>
+    const selListItems = allChoices.map((number, index) => {
+        return <Card key={index} number={number} selected={number === selected}></Card>
     });
 
     const listItems = numbers.map((number) => {
@@ -46,7 +46,7 @@ function CardsHolder() {
     return (
         <div>
             <div className="holderSel">
-                <p>{allChoices.filter(c=>c==='x').length} users not vote yet</p>
+                <p>{allChoices.filter(c => c === 'o').length} users not vote yet</p>
                 <div className="cards">
                     {selListItems}
                 </div>
