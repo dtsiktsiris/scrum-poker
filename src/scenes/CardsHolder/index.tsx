@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import './index.css'
 import Card from '../../components/Card/';
 
-const socket = new WebSocket(`ws://localhost:3001`);
+let socket: WebSocket;
 
 function CardsHolder() {
     const [selected, setSelected] = useState('');
     const [allChoices, setAllChoices] = useState([]);
 
     useEffect(() => {
+        socket = new WebSocket(`ws://localhost:3001/1234`);
         // Connection opened
         socket.addEventListener('open', function (event) {
             console.log('Connected to WS Server')
@@ -46,7 +47,7 @@ function CardsHolder() {
     return (
         <div>
             <div className="holderSel">
-                <p>{allChoices.filter(c => c === 'o').length} users not vote yet</p>
+                <p>{allChoices.filter(c => c === 'o').length} users have not vote yet</p>
                 <div className="cards">
                     {selListItems}
                 </div>
