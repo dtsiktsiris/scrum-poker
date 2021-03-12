@@ -47,7 +47,7 @@ function CardsHolder(props: any) {
         return <Card key={number} number={number} sendMessage={sendMessage}></Card>
     });
 
-    const hostPanel = (props.role==='host')?'host buttons':null;
+    const hostPanel = (props.role==='host')?<button onClick={()=>socket.send("reset-votes")}>Reset</button>:null;
     return (
         <div>
             <div className="holderSel">
@@ -60,7 +60,7 @@ function CardsHolder(props: any) {
                 {hostPanel}
             </div>
             <div className="holder">
-                <p>Choose you estimate:</p>
+                <p>Choose your estimate:</p>
                 <div className="cards">
                     {listItems}
                 </div>
