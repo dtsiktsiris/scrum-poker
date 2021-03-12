@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory  } from 'react-router-dom'
+
 let socket: WebSocket;
 
 function CreateRoom(props: any) {
@@ -16,7 +17,7 @@ function CreateRoom(props: any) {
         socket.addEventListener('message', function (event) {
             // console.log('Message from server ', event.data);
             props.createRoom(event.data);
-            history.push(`/${event.data}`)
+            history.push(`/${event.data}`);
             
         });
 

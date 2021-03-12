@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useHistory  } from 'react-router-dom'
 import './index.css'
 import Card from '../../components/Card/';
 
@@ -9,9 +10,11 @@ function CardsHolder(props: any) {
     const [selected, setSelected] = useState('');
     const [allChoices, setAllChoices] = useState([]);
 
+    let history = useHistory();
+
     useEffect(() => {
         // console.log(window.location.pathname);
-        
+
         socket = new WebSocket(`ws://localhost:3001${window.location.pathname}`);
         // Connection opened
         socket.addEventListener('open', function (event) {
@@ -21,9 +24,14 @@ function CardsHolder(props: any) {
         // Listen for messages
         socket.addEventListener('message', function (event) {
             // console.log('Message from server ', event.data);
-            let list = JSON.parse(event.data)
-            console.log(list);
-            setAllChoices(list);
+            if (event.data === 'room-not-found') {
+                history.push('/');
+            }
+            else {
+                let list = JSON.parse(event.data)
+                console.log(list);
+                setAllChoices(list);
+            }
         });
 
         socket.addEventListener('close', function (event) {
@@ -47,7 +55,7 @@ function CardsHolder(props: any) {
         return <Card key={number} number={number} sendMessage={sendMessage}></Card>
     });
 
-    const hostPanel = (props.role==='host')?<button onClick={()=>socket.send("reset-votes")}>Reset</button>:null;
+    const hostPanel = (props.role === 'host') ? <button onClick={() => socket.send("reset-votes")}>Reset</button> : null;
     return (
         <div>
             <div className="holderSel">
