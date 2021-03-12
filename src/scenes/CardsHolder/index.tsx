@@ -2,13 +2,17 @@ import React, { useEffect, useState } from 'react'
 import './index.css'
 import Card from '../../components/Card/';
 
-const socket = new WebSocket(`ws://localhost:3001`);
 
-function CardsHolder() {
+let socket: WebSocket;
+
+function CardsHolder(props: any) {
     const [selected, setSelected] = useState('');
     const [allChoices, setAllChoices] = useState([]);
 
     useEffect(() => {
+        // console.log(window.location.pathname);
+        
+        socket = new WebSocket(`ws://localhost:3001${window.location.pathname}`);
         // Connection opened
         socket.addEventListener('open', function (event) {
             console.log('Connected to WS Server')
@@ -33,7 +37,7 @@ function CardsHolder() {
         socket.send(choice);
     }
 
-    const numbers = ['1', '2', '3', '5', '8', '13', '20', '40', '60', '100', '?', 'C'];
+    const numbers = ['1', '2', '3', '5', '8', '13', '20', '40', '100', '?', 'C'];
 
     const selListItems = allChoices.map((number, index) => {
         return <Card key={index} number={number} selected={number === selected}></Card>
@@ -43,13 +47,17 @@ function CardsHolder() {
         return <Card key={number} number={number} sendMessage={sendMessage}></Card>
     });
 
+    const hostPanel = (props.role==='host')?'host buttons':null;
     return (
         <div>
             <div className="holderSel">
-                <p>{allChoices.filter(c => c === 'o').length} users not vote yet</p>
+                <p>{allChoices.filter(c => c === 'o').length} users have not vote yet</p>
                 <div className="cards">
                     {selListItems}
                 </div>
+            </div>
+            <div>
+                {hostPanel}
             </div>
             <div className="holder">
                 <p>Choose you estimate:</p>
