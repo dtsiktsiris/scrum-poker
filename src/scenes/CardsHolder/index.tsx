@@ -10,7 +10,9 @@ function CardsHolder(props: any) {
     const [allChoices, setAllChoices] = useState([]);
 
     useEffect(() => {
-        socket = new WebSocket(`ws://localhost:3001/1234`);
+        // console.log(window.location.pathname);
+        
+        socket = new WebSocket(`ws://localhost:3001${window.location.pathname}`);
         // Connection opened
         socket.addEventListener('open', function (event) {
             console.log('Connected to WS Server')

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, BrowserRouter as Router, useHistory  } from 'react-router-dom'
+import { Route, BrowserRouter as Router, useHistory, Switch  } from 'react-router-dom'
 import './App.css';
 import CardsHolder from './scenes/CardsHolder/';
 import CreateRoom from './scenes/CreateRoom/'
@@ -20,12 +20,14 @@ function App() {
     <div className="app">
       <Header></Header>
       <Router>
+        <Switch>
         <Route exact path="/" >
           <CreateRoom createRoom={createRoom}></CreateRoom>
         </Route>
         <Route path="/:id" >
           <CardsHolder role={role} ></CardsHolder>
         </Route>
+        </Switch>
       </Router>
     </div>
   );
