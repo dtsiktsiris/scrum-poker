@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { useHistory  } from 'react-router-dom'
+import React, {useEffect} from 'react'
+import {useHistory} from 'react-router-dom'
+
+import Button from "../../components/Button";
 
 let socket: WebSocket;
+let history;
 
 function CreateRoom(props: any) {
+    let createRoom = props.createRoom;
+    history = useHistory();
 
-    let history = useHistory();
     useEffect(() => {
         socket = new WebSocket(`ws://localhost:3001`);
         // Connection opened
@@ -16,9 +20,9 @@ function CreateRoom(props: any) {
         // Listen for messages
         socket.addEventListener('message', function (event) {
             // console.log('Message from server ', event.data);
-            props.createRoom(event.data);
+            createRoom(event.data);
             history.push(`/${event.data}`);
-            
+
         });
 
         socket.addEventListener('close', function (event) {
@@ -28,12 +32,12 @@ function CreateRoom(props: any) {
 
     const createClick = function () {
         socket.send('create-room');
-        // props.createRoom();
     }
     return (
         <div>
             <p>create room</p>
-            <button onClick={createClick}>Create</button>
+            <Button buttonClick={createClick} name="Create">
+            </Button>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, BrowserRouter as Router, useHistory, Switch  } from 'react-router-dom'
+import { Route, BrowserRouter as Router, Switch  } from 'react-router-dom'
 import './App.css';
 import CardsHolder from './scenes/CardsHolder/';
 import CreateRoom from './scenes/CreateRoom/'
@@ -7,8 +7,6 @@ import Header from './scenes/Header/';
 
 function App() {
   const [role, setRole] = useState("user");
-
-  let history = useHistory();
 
   const createRoom = (roomId: number) => {
     setRole("host")

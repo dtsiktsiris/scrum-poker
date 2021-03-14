@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import {useHistory} from 'react-router-dom'
 import './index.css'
 import Card from '../../components/Card/';
+import Button from "../../components/Button";
 
 
 let socket: WebSocket;
+let history;
 
 function CardsHolder(props: any) {
     const [selected, setSelected] = useState('');
     const [allChoices, setAllChoices] = useState([]);
 
-    let history = useHistory();
+    history = useHistory();
 
     useEffect(() => {
-        // console.log(window.location.pathname);
+
 
         socket = new WebSocket(`ws://localhost:3001${window.location.pathname}`);
         // Connection opened
@@ -26,8 +28,7 @@ function CardsHolder(props: any) {
             // console.log('Message from server ', event.data);
             if (event.data === 'room-not-found') {
                 history.push('/');
-            }
-            else {
+            } else {
                 let list = JSON.parse(event.data)
                 console.log(list);
                 setAllChoices(list);
@@ -55,6 +56,12 @@ function CardsHolder(props: any) {
         return <Card key={number} number={number} sendMessage={sendMessage}></Card>
     });
 
+    const resetClick = function () {
+        socket.send('reset-votes');
+    }
+    const revealClick = function () {
+        socket.send('reveal-votes');
+    }
     return (
         <div>
             <div className="holderSel">
@@ -66,8 +73,8 @@ function CardsHolder(props: any) {
             <div>
                 {(props.role === 'host') ?
                     [
-                        <button onClick={() => socket.send("reset-votes")}>Reset</button>,
-                        <button onClick={() => socket.send("reveal-votes")}>Reveal</button>
+                        <Button buttonClick={resetClick} name="Reset"/>,
+                        <Button buttonClick={revealClick} name="Reveal"/>
                     ] : null}
             </div>
             <div className="holder">
